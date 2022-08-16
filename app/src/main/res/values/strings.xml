@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Besteller</string>
+    <string name="lokalid">LokalID:</string>
+    <string name="tischid">TischID:</string>
+    <string name="button">Button</string>
+    <string name="textview">TextView</string>
+    <string name="grid">GridView</string>
+
+</resources>
