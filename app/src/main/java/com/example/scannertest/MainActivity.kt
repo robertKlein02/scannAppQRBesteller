@@ -1,9 +1,12 @@
 package com.example.scannertest
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
      private var database =FirebaseDatabase.getInstance()
      private var refData :DatabaseReference=database.getReference()
      private var isInsertSuccess = false
+    lateinit var tv_lokalID: TextView
+    lateinit var tv_tischID: TextView
 
     private lateinit var binding: OrderBinding
 
@@ -33,6 +38,21 @@ class MainActivity : AppCompatActivity() {
             "Pizza",
             "Pasta",
             "Döner",
+            "Pizza",
+            "Pasta",
+            "Döner",
+            "Reis",
+            "Dessert",
+            "Pizza",
+            "Pasta",
+            "Döner",
+            "Reis",
+            "Dessert",
+            "Pizza",
+            "Pasta",
+            "Döner",
+            "Reis",
+            "Dessert",
             "Reis",
             "Dessert",
             "Trinken"
@@ -42,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var codeScanner: CodeScanner
+    private val SPLASH_TIME_OUT = 300L
 
     lateinit var scann:JsonQRCode
 
@@ -51,12 +72,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         setContentView(R.layout.activity_main)
         val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
         val tv_view = findViewById<TextView>(R.id.tv_textView)
 
-        lateinit var tv_lokalID: TextView
-        lateinit var tv_tischID: TextView
+
 
 
         codeScanner = CodeScanner(this, scannerView)
@@ -77,52 +99,31 @@ class MainActivity : AppCompatActivity() {
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
-               tv_view.text=it.text
-                scann= JsonQRCode( tv_view.text.toString())
 
-                if(scann.checkQR()){
-                        scann.getID()
+                    tv_view.text = it.text
+                    scann = JsonQRCode(tv_view.text.toString())
 
-
-                    println("startbestellung")
-                    setContentView(R.layout.order)
-
-                    binding = OrderBinding.inflate(layoutInflater)
-                    setContentView(binding.root)
-                    setupGridView()
+                    if (scann.checkQR()) {
 
 
 
-
-                    tv_tischID=findViewById(R.id.tischID)
-                    tv_lokalID=findViewById(R.id.lokalID)
-                    tv_lokalID.text=scann.toStringID(scann.lokalQR)
-                    tv_tischID.text=scann.toStringID(scann.tischQR)
-
-
-
-                    //findViewById<Button>(R.id.button).setOnClickListener{
-                        println("pfeife")
+                       setContentView(R.layout.loading)
+                            Handler().postDelayed(
+                                {
+                                    val i = Intent(this@MainActivity, HomeActivity::class.java)
+                                    wennScannTrue()
+                                }, SPLASH_TIME_OUT)
 
 
 
 
-                       refData.addValueEventListener(RealTimeDB(scann).postListener)
 
 
-                        RealTimeDB(scann).insert(BestellungTisch("",scann.toStringID(scann.lokalQR),scann.toStringID(scann.tischQR),null,false,true),scann)
-
-
-
-                        //  println(Thread.currentThread().name
-                    //}
-
-
-
-                }else{
-                    tv_view.text="Dies ist kein QR Code von uns"
+                    } else {
+                        tv_view.text = "Dies ist kein QR Code von uns"
+                    }
                 }
-            }
+
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
             runOnUiThread {
@@ -192,6 +193,69 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    fun wennScannTrue(){
+
+        scann.getID()
+
+
+
+        println("startbestellung")
+
+
+
+        binding = OrderBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setupGridView()
+
+
+
+//
+       // tv_tischID = findViewById(R.id.tischID)
+       // tv_lokalID = findViewById(R.id.lokalID)
+       // tv_lokalID.text = scann.toStringID(scann.lokalQR)
+       // tv_tischID.text = scann.toStringID(scann.tischQR)
+
+
+        //findViewById<Button>(R.id.button).setOnClickListener{
+        println("pfeife")
+
+
+
+
+        refData.addValueEventListener(RealTimeDB(scann).postListener)
+
+
+        RealTimeDB(scann).insert(
+            BestellungTisch(
+                "",
+                scann.toStringID(scann.lokalQR),
+                scann.toStringID(scann.tischQR),
+                null,
+                false,
+                true
+            ), scann
+        )
+
+
+        setContentView(binding.root)
+
+
+        //  println(Thread.currentThread().name
+        //}
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
