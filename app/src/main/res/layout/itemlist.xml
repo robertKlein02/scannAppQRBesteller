@@ -12,7 +12,8 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:scaleX="0.5"
-        android:scaleY="0.5" />
+        android:scaleY="0.5"
+        android:contentDescription="TODO" />
 
 
     <TextView

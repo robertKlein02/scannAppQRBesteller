@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             "Döner",
             "Pizza",
             "Pasta",
-            "Döner",
+            "Bier",
             "Reis",
             "Dessert",
             "Pizza",
