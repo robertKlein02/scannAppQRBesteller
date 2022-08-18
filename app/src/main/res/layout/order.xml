@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#EBECF1"
     tools:context=".MainActivity">
 
 
@@ -12,13 +12,15 @@
         android:id="@+id/gridview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#D5EAF2"
+        android:layout_marginBottom="-4dp"
+        android:background="@color/white"
         android:horizontalSpacing="@dimen/padding_default"
         android:numColumns="auto_fit"
         android:padding="@dimen/padding_default"
         android:verticalSpacing="@dimen/padding_default"
         app:layout_constraintBottom_toTopOf="@+id/imageButton2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -29,16 +31,16 @@
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:scaleX="0.4"
-        android:scaleY="0.4"
+        android:layout_marginBottom="5dp"
+        android:background="#EBECF1"
+        android:scaleX="0.35"
+        android:scaleY="0.35"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_einkaufwagen"
-        app:tint="#4563BF" />
+        app:tint="#0D0D0D" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

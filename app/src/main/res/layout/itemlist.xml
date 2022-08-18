@@ -11,8 +11,8 @@
         android:layout_width="75dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
         android:contentDescription="TODO" />
 
 
@@ -22,6 +22,6 @@
         android:layout_height="100dp"
         android:paddingTop="40dp"
         android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/white"/>
+        android:textColor="#0D0D0D"/>
 
 </LinearLayout>

@@ -25,6 +25,9 @@ internal class ImageListAdapter internal constructor(
         return if (this.itemList != null) this.itemList.size else 0
     }
 
+
+
+
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var convertView = view
         val holder: ItemViewHolder
@@ -40,14 +43,14 @@ internal class ImageListAdapter internal constructor(
         }
         holder.name!!.text = this.itemList!![position]
 
-        if(holder.name!!.text=="Pizza")holder.icon!!.setImageResource(R.drawable.pizza)
+        if(holder.name!!.text=="Pizza")holder.icon!!.setImageResource(R.drawable.pizzas)
         if(holder.name!!.text=="Pasta")holder.icon!!.setImageResource(R.drawable.pasta)
         if(holder.name!!.text=="Döner")holder.icon!!.setImageResource(R.drawable.doner)
         if(holder.name!!.text=="Reis")holder.icon!!.setImageResource(R.drawable.reis)
-        if(holder.name!!.text=="Dessert")holder.icon!!.setImageResource(R.drawable.cupcake)
-        if(holder.name!!.text=="Getränke")holder.icon!!.setImageResource(R.drawable.wasser)
+        if(holder.name!!.text=="Dessert")holder.icon!!.setImageResource(R.drawable.dessert)
+        if(holder.name!!.text=="Getränke")holder.icon!!.setImageResource(R.drawable.trinken)
         if(holder.name!!.text=="Burger")holder.icon!!.setImageResource(R.drawable.burger)
-        if(holder.name!!.text=="Nudel")holder.icon!!.setImageResource(R.drawable.noodle)
+        if(holder.name!!.text=="Nudel")holder.icon!!.setImageResource(R.drawable.noodel)
         if(holder.name!!.text=="Cocktail")holder.icon!!.setImageResource(R.drawable.cocktail)
         if(holder.name!!.text=="Pommes")holder.icon!!.setImageResource(R.drawable.pommes)
         if(holder.name!!.text=="Sushi")holder.icon!!.setImageResource(R.drawable.sushi)

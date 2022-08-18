@@ -1,10 +1,12 @@
 package com.example.scannertest
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
      private var isInsertSuccess = false
     lateinit var tv_lokalID: TextView
     lateinit var tv_tischID: TextView
+    var imei=""
 
     private lateinit var binding: OrderBinding
 
@@ -38,24 +41,16 @@ class MainActivity : AppCompatActivity() {
             "Pizza",
             "Pasta",
             "Döner",
-            "Pizza",
-            "Pasta",
-            "Bier",
             "Reis",
             "Dessert",
-            "Pizza",
-            "Pasta",
-            "Döner",
-            "Reis",
-            "Dessert",
-            "Pizza",
-            "Pasta",
-            "Döner",
-            "Reis",
-            "Dessert",
-            "Reis",
-            "Dessert",
-            "Trinken"
+            "Getränke",
+            "Burger",
+            "Nudel",
+            "Cocktail",
+            "Pommes",
+            "Sushi",
+            "Wein",
+            "Bier"
         )
 
 
@@ -63,6 +58,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var codeScanner: CodeScanner
     private val SPLASH_TIME_OUT = 300L
+
+    var text=""
 
     lateinit var scann:JsonQRCode
 
@@ -103,8 +100,15 @@ class MainActivity : AppCompatActivity() {
                     tv_view.text = it.text
                     scann = JsonQRCode(tv_view.text.toString())
 
+                if (text.length>2){
+                    tv_view.text=text
+                }
+
                     if (scann.checkQR()) {
 
+
+
+                        text=scann.geleseneDatei
 
 
                        setContentView(R.layout.loading)
@@ -138,8 +142,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupGridView() {
-        val adapter = ImageListAdapter(this, R.layout.itemlist, itemList)
+        val adapter = ImageListAdapter(this, R.layout.itemlist, sortArray(itemList))
+
         binding.gridview.adapter = adapter
+
 
         binding.gridview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, v, position, id ->
@@ -196,22 +202,12 @@ class MainActivity : AppCompatActivity() {
 
 
     fun wennScannTrue(){
-
         scann.getID()
-
-
-
         println("startbestellung")
-
-
-
         binding = OrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupGridView()
-
-
-
-//
+        
        // tv_tischID = findViewById(R.id.tischID)
        // tv_lokalID = findViewById(R.id.lokalID)
        // tv_lokalID.text = scann.toStringID(scann.lokalQR)
@@ -219,13 +215,8 @@ class MainActivity : AppCompatActivity() {
 
 
         //findViewById<Button>(R.id.button).setOnClickListener{
-        println("pfeife")
-
-
-
 
         refData.addValueEventListener(RealTimeDB(scann).postListener)
-
 
         RealTimeDB(scann).insert(
             BestellungTisch(
@@ -237,26 +228,27 @@ class MainActivity : AppCompatActivity() {
                 true
             ), scann
         )
-
-
         setContentView(binding.root)
-
-
         //  println(Thread.currentThread().name
         //}
     }
 
 
+    // Diese Funkrion Sortiert die überkategorien damit alle Geschäfte die gleiche Reihenfolge haben
+    fun sortArray(array: Array<String>):Array<String> {
+        val musterSort= mutableListOf<String>("Pizza", "Pasta", "Nudel", "Reis", "Döner",  "Burger", "Pommes", "Sushi", "Getränke", "Cocktail", "Wein", "Bier", "Dessert")
+        var newlist = mutableListOf<String>("")
 
-
-
-
-
-
-
-
-
-
-
+        for (i in musterSort){
+            println(i)
+            for (i2 in array){
+                if (i == i2){
+                    newlist.add(i)
+                }
+            }
+        }
+        newlist.removeAt(0)
+        return newlist.toTypedArray()
+    }
 
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="#1A3B95"
+    android:background="#EBECF1"
     tools:context=".MainActivity"
 
     >
@@ -18,7 +18,7 @@
         app:autoFocusButtonVisible="true"
         app:flashButtonColor="@android:color/white"
         app:flashButtonVisible="true"
-        app:maskColor="#4D143A9A"
+        app:maskColor="#80EBECF1"
 
         />
 
@@ -26,27 +26,29 @@
         android:id="@+id/tv_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="-1dp"
         android:gravity="center"
         android:text="Scannen Sie den QR Code auf dem Tisch"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/white" />
+        android:textColor="#0D0D0D" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="37dp"
         android:layout_below="@+id/scanner_view"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        app:srcCompat="@drawable/ic_plane" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="-1dp"
+        app:srcCompat="@drawable/ic_logo" />
 
 
 </RelativeLayout>
