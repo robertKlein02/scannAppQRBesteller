@@ -25,6 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ScannerTest"
         tools:targetApi="31">
+        <activity android:name=".FoodsScreen"></activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

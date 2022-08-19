@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.*
+import com.example.scannertest.databinding.ActivityMainBinding
 import com.example.scannertest.databinding.OrderBinding
 import com.google.firebase.database.*
 
@@ -26,6 +27,7 @@ private const val CAMERA_REQUEST_CODE=101
 
 
 class MainActivity : AppCompatActivity() {
+
 
      private var database =FirebaseDatabase.getInstance()
      private var refData :DatabaseReference=database.getReference()
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
 
 
@@ -114,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                        setContentView(R.layout.loading)
                             Handler().postDelayed(
                                 {
-                                    val i = Intent(this@MainActivity, HomeActivity::class.java)
+                                    val i = Intent(this@MainActivity, MainActivity::class.java)
                                     wennScannTrue()
                                 }, SPLASH_TIME_OUT)
 
@@ -150,9 +153,11 @@ class MainActivity : AppCompatActivity() {
         binding.gridview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, v, position, id ->
                 Toast.makeText(
-                    this@MainActivity, itemList.get(position) ,
-                    Toast.LENGTH_SHORT
+                    this@MainActivity, sortArray(itemList).get(position) ,
+                    Toast.LENGTH_SHORT,
+
                 ).show()
+                openUnderMenu(itemList.get(position))
             }
     }
 
@@ -250,5 +255,15 @@ class MainActivity : AppCompatActivity() {
         newlist.removeAt(0)
         return newlist.toTypedArray()
     }
+
+
+    fun openUnderMenu(string: String){
+        val i = Intent(this,FoodsScreen::class.java)
+
+        startActivity(Intent(i))
+
+
+    }
+
 
 }
