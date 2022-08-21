@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
      private var isInsertSuccess = false
     lateinit var tv_lokalID: TextView
     lateinit var tv_tischID: TextView
+
+    private lateinit var names:String
+
     var imei=""
 
     private lateinit var binding: OrderBinding
@@ -152,11 +155,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.gridview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, v, position, id ->
-                Toast.makeText(
-                    this@MainActivity, sortArray(itemList).get(position) ,
-                    Toast.LENGTH_SHORT,
+             //  Toast.makeText(
+             //      this@MainActivity, sortArray(itemList).get(position) ,
+             //      Toast.LENGTH_SHORT,
 
-                ).show()
+             //  )
+
+
                 openUnderMenu(itemList.get(position))
             }
     }
@@ -258,7 +263,11 @@ class MainActivity : AppCompatActivity() {
 
 
     fun openUnderMenu(string: String){
-        val i = Intent(this,FoodsScreen::class.java)
+
+
+        val i = Intent(this,FoodList::class.java)
+
+
 
         startActivity(Intent(i))
 
