@@ -31,6 +31,8 @@ internal class ImageListAdapter internal constructor(
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var convertView = view
         val holder: ItemViewHolder
+
+
         if (convertView == null) {
             itemBinding = ItemlistBinding.inflate(inflater)
             convertView = itemBinding.root
@@ -56,6 +58,11 @@ internal class ImageListAdapter internal constructor(
         if(holder.name!!.text=="Sushi")holder.icon!!.setImageResource(R.drawable.sushi)
         if(holder.name!!.text=="Wein")holder.icon!!.setImageResource(R.drawable.wine)
         if(holder.name!!.text=="Bier")holder.icon!!.setImageResource(R.drawable.beer)
+
+
+
+
+
 
         return convertView
     }

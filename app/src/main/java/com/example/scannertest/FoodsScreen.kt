@@ -15,12 +15,12 @@ class FoodsScreen() : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val desc = intent.getStringExtra("desc")
-        val image = intent.getIntExtra("imageId", R.drawable.chicken_schnitzel)
+       // val image = intent.getIntExtra("imageId", R.drawable.chicken_schnitzel)
 
 
         binding.foodDesc.text =desc
         binding.foodName.text =name
-        binding.imgFood.setImageResource(image)
+    //    binding.imgFood.setImageResource(image)
 
 
     }

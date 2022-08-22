@@ -18,12 +18,12 @@ class MyAdapter(private val context : Activity, private val arrayList: ArrayList
         val view : View = inflater.inflate(R.layout.list_item,null)
 
         // Refer to elements of the item view
-        val imageView : ImageView = view.findViewById(R.id.foodImage)
+       // val imageView : ImageView = view.findViewById(R.id.foodImage)
         val txName : TextView = view.findViewById(R.id.resName)
         val txDesc : TextView = view.findViewById(R.id.desc)
 
         // Set data in view
-        imageView.setImageResource(arrayList[position].image)
+        //imageView.setImageResource(arrayList[position].image)
         txName.text = arrayList[position].name
         txDesc.text = arrayList[position].desc
 

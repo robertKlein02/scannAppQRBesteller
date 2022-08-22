@@ -9,10 +9,7 @@ import android.os.Handler
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -34,6 +31,7 @@ class MainActivity : AppCompatActivity() {
      private var isInsertSuccess = false
     lateinit var tv_lokalID: TextView
     lateinit var tv_tischID: TextView
+    var click = ""
 
     private lateinit var names:String
 
@@ -147,24 +145,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupGridView() {
-        val adapter = ImageListAdapter(this, R.layout.itemlist, sortArray(itemList))
-
-        binding.gridview.adapter = adapter
-
-
-        binding.gridview.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, v, position, id ->
-             //  Toast.makeText(
-             //      this@MainActivity, sortArray(itemList).get(position) ,
-             //      Toast.LENGTH_SHORT,
-
-             //  )
-
-
-                openUnderMenu(itemList.get(position))
-            }
-    }
 
 
     override fun onResume() {
@@ -262,11 +242,36 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun openUnderMenu(string: String){
+
+    private fun setupGridView() {
+        val adapter = ImageListAdapter(this, R.layout.itemlist, sortArray(itemList))
 
 
+        binding.gridview.adapter = adapter
+
+
+        binding.gridview.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, v, position, id ->
+                //  Toast.makeText(
+                //      this@MainActivity, sortArray(itemList).get(position) ,
+                //      Toast.LENGTH_SHORT,
+
+                //  )
+
+                click = sortArray(itemList).get(position)
+
+                openUnderMenu()
+            }
+
+
+    }
+
+
+
+    fun openUnderMenu(){
         val i = Intent(this,FoodList::class.java)
 
+        i.putExtra("name",click)
 
 
         startActivity(Intent(i))
