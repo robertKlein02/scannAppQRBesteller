@@ -21,9 +21,7 @@ class FoodList() : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         var icons=findViewById<ImageView>(R.id.icon2)
-        var textTop=findViewById<TextView>(R.id.textView3)
-
-        textTop.setText(name)
+        
 
         if(name=="Pizza")icons!!.setImageResource(R.drawable.pizzas)
         if(name=="Pasta")icons!!.setImageResource(R.drawable.pasta)

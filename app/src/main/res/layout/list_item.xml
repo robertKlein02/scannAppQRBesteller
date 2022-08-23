@@ -17,8 +17,8 @@
 
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             android:layout_weight="3"
             android:orientation="vertical"
             android:paddingLeft="3dp"
@@ -27,13 +27,14 @@
             <TextView
                 android:id="@+id/resName"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="24dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:paddingLeft="5dp"
-                android:text="coffee"
+                android:paddingTop="10dp"
+                android:text="coffssssssssssssssssssssssssssssssssssssssssssssssssssssssssssee"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -41,7 +42,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
+                android:gravity="center_horizontal"
                 android:paddingLeft="5dp"
+                android:paddingTop="5dp"
                 android:text="ssslkpkoojojdojdokook"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
@@ -49,14 +52,50 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/AnzahlItemID"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_weight="3"
+            android:paddingLeft="3dp"
             android:gravity="center"
-            android:text="0"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:padding="10dp"
+            android:paddingRight="3dp">
+
+            <Button
+                android:id="@+id/minus"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/mybutton"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/anzahlitemid"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="0"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/plus"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/mybutton"
+                android:layout_weight="1"
+                android:text="+" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
