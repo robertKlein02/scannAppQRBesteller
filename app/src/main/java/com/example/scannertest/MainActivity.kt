@@ -1,22 +1,19 @@
 package com.example.scannertest
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.telephony.TelephonyManager
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.*
-import com.example.scannertest.databinding.ActivityMainBinding
-import com.example.scannertest.databinding.OrderBinding
+import com.example.scannertest.Adapter.ImageListAdapter
+import com.example.scannertest.databinding.*
 import com.google.firebase.database.*
 
 
@@ -269,9 +266,9 @@ class MainActivity : AppCompatActivity() {
 
 
     fun openUnderMenu(){
-        val i = Intent(this,FoodList::class.java)
+        val i = Intent(this,Foodlist::class.java)
 
-        i.putExtra("name",click)
+
 
 
         startActivity(Intent(i))

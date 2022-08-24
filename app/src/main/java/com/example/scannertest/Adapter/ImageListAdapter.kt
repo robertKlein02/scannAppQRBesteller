@@ -1,4 +1,4 @@
-package com.example.scannertest
+package com.example.scannertest.Adapter
 
 
 import android.content.Context
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.scannertest.R
 import com.example.scannertest.databinding.*
 
 
@@ -32,6 +33,8 @@ internal class ImageListAdapter internal constructor(
         var convertView = view
         val holder: ItemViewHolder
 
+        
+
 
         if (convertView == null) {
             itemBinding = ItemlistBinding.inflate(inflater)
@@ -44,6 +47,8 @@ internal class ImageListAdapter internal constructor(
             holder = convertView.tag as ItemViewHolder
         }
         holder.name!!.text = this.itemList!![position]
+
+
 
         if(holder.name!!.text=="Pizza")holder.icon!!.setImageResource(R.drawable.pizzas)
         if(holder.name!!.text=="Pasta")holder.icon!!.setImageResource(R.drawable.pasta)

@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/mybutton.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/myicon.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/rounded.xml" value="0.255" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.27717391304347827" />
         <entry key="app/src/main/res/layout/activity_foods_screen.xml" value="0.2907608695652174" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.45" />
         <entry key="app/src/main/res/layout/bierlist.xml" value="0.21458333333333332" />
@@ -33,6 +34,7 @@
         <entry key="app/src/main/res/layout/pastalist.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/pizzalist.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/pommeslist.xml" value="0.21458333333333332" />
+        <entry key="app/src/main/res/layout/recycler_row.xml" value="0.27717391304347827" />
         <entry key="app/src/main/res/layout/reislist.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/sushilist.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/weinlist.xml" value="0.21458333333333332" />
