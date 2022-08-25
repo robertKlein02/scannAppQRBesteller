@@ -1,14 +1,12 @@
 package com.example.scannertest
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.scannertest.databinding.RecyclerRowBinding
 
 
-class LandmarkAdapter (val landmarkList: ArrayList<Landmark>) : RecyclerView.Adapter<LandmarkAdapter.LandmarkHolder>() {
+class LandmarkAdapter (val landmarkList: ArrayList<Food>) : RecyclerView.Adapter<LandmarkAdapter.LandmarkHolder>() {
 
     class LandmarkHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -25,17 +23,29 @@ class LandmarkAdapter (val landmarkList: ArrayList<Landmark>) : RecyclerView.Ada
         holder.binding.resName.text = landmarkList.get(position).name
 
         holder.binding.minus.setOnClickListener {
-            holder.binding.anzahlitemid.text="5"
-            println("sfdagfshfdjgkhljöhhklghftzrseardzfugkhljigkufzdtrseawtzuighljo")
+
+            var anzahl= holder.binding.anzahlitemid.text.toString().toInt()
+
+            if (anzahl<=0){
+                holder.binding.anzahlitemid.setText("0")
+            }else{
+                holder.binding.anzahlitemid.setText("${anzahl-1}")
+            }
+        }
+
+        holder.binding.plus.setOnClickListener {
+            var anzahl= holder.binding.anzahlitemid.text.toString().toInt()
+            holder.binding.anzahlitemid.setText("${anzahl+1}")
         }
 
 
 
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context,DetailsActivity::class.java)
-            intent.putExtra("landmark",landmarkList.get(position))
-            holder.itemView.context.startActivity(intent)
-        }
+
+       // holder.itemView.setOnClickListener {
+       //     val intent = Intent(holder.itemView.context,DetailsActivity::class.java)
+       //     intent.putExtra("landmark",landmarkList.get(position))
+       //     holder.itemView.context.startActivity(intent)
+       // }
     }
 
     override fun getItemCount(): Int {

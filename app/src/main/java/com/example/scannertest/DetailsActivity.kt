@@ -16,7 +16,7 @@ class DetailsActivity : AppCompatActivity() {
 
         val intent = intent
         //Casting
-        val selectedLandmark = intent.getSerializableExtra("landmark") as Landmark
+        val selectedLandmark = intent.getSerializableExtra("landmark") as Food
 
         binding.nameText.text = selectedLandmark.name
         binding.countryText.text = selectedLandmark.country

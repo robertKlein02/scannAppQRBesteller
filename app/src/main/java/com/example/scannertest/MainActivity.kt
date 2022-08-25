@@ -90,9 +90,18 @@ class MainActivity : AppCompatActivity() {
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
         codeScanner.isFlashEnabled = false // Whether to enable flash or not
 
-        var bestellungen:Lokal=Lokal("hans",1)
+// #########################  Um Scan zu überspringen ###################################
 
+        scann= JsonQRCode("x15y51z")
 
+        setContentView(R.layout.loading)
+        Handler().postDelayed(
+            {
+                val i = Intent(this@MainActivity, MainActivity::class.java)
+                wennScannTrue()
+            }, SPLASH_TIME_OUT)
+
+// #######################################################################################
 
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
@@ -227,7 +236,6 @@ class MainActivity : AppCompatActivity() {
         var newlist = mutableListOf<String>("")
 
         for (i in musterSort){
-            println(i)
             for (i2 in array){
                 if (i == i2){
                     newlist.add(i)
@@ -249,13 +257,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.gridview.onItemClickListener =
             AdapterView.OnItemClickListener { parent, v, position, id ->
-                //  Toast.makeText(
-                //      this@MainActivity, sortArray(itemList).get(position) ,
-                //      Toast.LENGTH_SHORT,
 
-                //  )
 
-                click = sortArray(itemList).get(position)
+               click= this.sortArray(itemList)[position]
+
+
+
+
 
                 openUnderMenu()
             }
@@ -267,6 +275,10 @@ class MainActivity : AppCompatActivity() {
 
     fun openUnderMenu(){
         val i = Intent(this,Foodlist::class.java)
+
+        i.putExtra("click",click)
+
+
 
 
 
