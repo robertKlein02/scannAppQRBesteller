@@ -1,6 +1,4 @@
-package com.example.scannertest
-
-import android.widget.TextView
+package com.example.scannertest.Scanner
 
 class JsonQRCode(var geleseneDatei:String) {
 

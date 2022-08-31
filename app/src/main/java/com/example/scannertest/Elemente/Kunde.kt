@@ -1,4 +1,4 @@
-package com.example.scannertest
+package com.example.scannertest.Elemente
 
 class Kunde {
 

@@ -1,67 +1,61 @@
 package com.example.scannertest
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.telephony.TelephonyManager
+import android.util.LayoutDirection
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.*
 import com.budiyev.android.codescanner.*
 import com.example.scannertest.Adapter.ImageListAdapter
+import com.example.scannertest.Datenbank.RealTimeDB
+import com.example.scannertest.Elemente.BestellungTisch
+import com.example.scannertest.Scanner.JsonQRCode
 import com.example.scannertest.databinding.*
 import com.google.firebase.database.*
+import java.util.concurrent.Semaphore
 
 
 private const val CAMERA_REQUEST_CODE=101
-
+var s = Semaphore(1)
 
 class MainActivity : AppCompatActivity() {
 
 
-     private var database =FirebaseDatabase.getInstance()
-     private var refData :DatabaseReference=database.getReference()
-     private var isInsertSuccess = false
+    private var database =FirebaseDatabase.getInstance()
+    private var refData :DatabaseReference=database.getReference()
+    private var isInsertSuccess = false
+
+
     lateinit var tv_lokalID: TextView
     lateinit var tv_tischID: TextView
     var click = ""
 
     private lateinit var names:String
 
-    var imei=""
-
-    private lateinit var binding: OrderBinding
-
-    private val itemList: Array<String>
-        get() = arrayOf(
-            "Pizza",
-            "Pasta",
-            "Döner",
-            "Reis",
-            "Dessert",
-            "Getränke",
-            "Burger",
-            "Nudel",
-            "Cocktail",
-            "Pommes",
-            "Sushi",
-            "Wein",
-            "Bier"
-        )
-
 
 
 
     private lateinit var codeScanner: CodeScanner
+
+
     private val SPLASH_TIME_OUT = 300L
 
     var text=""
 
-    lateinit var scann:JsonQRCode
+    lateinit var scann: JsonQRCode
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,12 +63,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
         setContentView(R.layout.activity_main)
         val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
         val tv_view = findViewById<TextView>(R.id.tv_textView)
+        val buttinhier=findViewById<Button>(R.id.oderhier)
+        val tischvisi=findViewById<TextView>(R.id.tischidvisible)
+        val lokalvisi=findViewById<TextView>(R.id.lokalidvisible)
+        val icon=findViewById<ImageView>(R.id.imageIcon)
+
 
 
 
@@ -90,55 +86,66 @@ class MainActivity : AppCompatActivity() {
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
         codeScanner.isFlashEnabled = false // Whether to enable flash or not
 
-// #########################  Um Scan zu überspringen ###################################
+//// #########################  Um Scan zu überspringen ###################################
+//
+//        scann= JsonQRCode("x15y51z")
+//
+//
+//
+//        setContentView(R.layout.loading)
+//        Handler().postDelayed(
+//            {
+//                val i = Intent(this@MainActivity, MainActivity::class.java)
+//                wennScannTrue()
+//            }, SPLASH_TIME_OUT)
+//
+//// #######################################################################################
 
-        scann= JsonQRCode("x15y51z")
 
-        setContentView(R.layout.loading)
-        Handler().postDelayed(
-            {
-                val i = Intent(this@MainActivity, MainActivity::class.java)
-                wennScannTrue()
-            }, SPLASH_TIME_OUT)
+        buttinhier.setOnClickListener {
+            wennScannTrue()
+        }
 
-// #######################################################################################
 
         // Callbacks
-        codeScanner.decodeCallback = DecodeCallback {
-            runOnUiThread {
+        if (codeScanner.decodeCallback==null) {                              // Verzweigung da sich Screen Gridlist zwei mal öffnet
+            codeScanner.decodeCallback = DecodeCallback {
+                runOnUiThread {
 
-                    tv_view.text = it.text
-                    scann = JsonQRCode(tv_view.text.toString())
+                    scann = JsonQRCode(it.text)
 
-                if (text.length>2){
-                    tv_view.text=text
-                }
+
 
                     if (scann.checkQR()) {
 
+                        text = scann.geleseneDatei
+
+                        wennScannTrue()
+                        buttinhier.isVisible = true
+                        scannerView.isVisible = false
+                        tischvisi.isVisible = true
+                        lokalvisi.isVisible = true
 
 
-                        text=scann.geleseneDatei
+                        val param = icon.layoutParams as ViewGroup.MarginLayoutParams
+                        param.setMargins(icon.marginLeft, 400, icon.marginRight, icon.marginBottom)
+                        icon.layoutParams = param //
 
 
-                       setContentView(R.layout.loading)
-                            Handler().postDelayed(
-                                {
-                                    val i = Intent(this@MainActivity, MainActivity::class.java)
-                                    wennScannTrue()
-                                }, SPLASH_TIME_OUT)
-
-
-
-
+                        tv_view.text = "Sie sind angemeldet an:"
+                        tischvisi.text = "TischID: ${scann.toStringID(scann.tischQR)}"
+                        lokalvisi.text = "LokalID: ${scann.toStringID(scann.lokalQR)}"
 
 
                     } else {
                         tv_view.text = "Dies ist kein QR Code von uns"
                     }
+
                 }
 
+            }
         }
+
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
             runOnUiThread {
                 Log.e("Main", "Camera initialization error ${it.message}")
@@ -200,93 +207,29 @@ class MainActivity : AppCompatActivity() {
     fun wennScannTrue(){
         scann.getID()
         println("startbestellung")
-        binding = OrderBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupGridView()
-        
-       // tv_tischID = findViewById(R.id.tischID)
-       // tv_lokalID = findViewById(R.id.lokalID)
-       // tv_lokalID.text = scann.toStringID(scann.lokalQR)
-       // tv_tischID.text = scann.toStringID(scann.tischQR)
 
 
-        //findViewById<Button>(R.id.button).setOnClickListener{
+        val i = Intent(this,GridlistActivity::class.java)
 
-        refData.addValueEventListener(RealTimeDB(scann).postListener)
-
-        RealTimeDB(scann).insert(
-            BestellungTisch(
-                "",
-                scann.toStringID(scann.lokalQR),
-                scann.toStringID(scann.tischQR),
-                null,
-                false,
-                true
-            ), scann
-        )
-        setContentView(binding.root)
-        //  println(Thread.currentThread().name
-        //}
-    }
-
-
-    // Diese Funkrion Sortiert die überkategorien damit alle Geschäfte die gleiche Reihenfolge haben
-    fun sortArray(array: Array<String>):Array<String> {
-        val musterSort= mutableListOf<String>("Pizza", "Pasta", "Nudel", "Reis", "Döner",  "Burger", "Pommes", "Sushi", "Getränke", "Cocktail", "Wein", "Bier", "Dessert")
-        var newlist = mutableListOf<String>("")
-
-        for (i in musterSort){
-            for (i2 in array){
-                if (i == i2){
-                    newlist.add(i)
-                }
-            }
-        }
-        newlist.removeAt(0)
-        return newlist.toTypedArray()
-    }
-
-
-
-    private fun setupGridView() {
-        val adapter = ImageListAdapter(this, R.layout.itemlist, sortArray(itemList))
-
-
-        binding.gridview.adapter = adapter
-
-
-        binding.gridview.onItemClickListener =
-            AdapterView.OnItemClickListener { parent, v, position, id ->
-
-
-               click= this.sortArray(itemList)[position]
-
-
-
-
-
-                openUnderMenu()
-            }
-
-
-    }
-
-
-
-    fun openUnderMenu(){
-        val i = Intent(this,Foodlist::class.java)
-
-        i.putExtra("click",click)
-
-
-
-
+        i.putExtra("click",scann.geleseneDatei)
 
 
         startActivity(Intent(i))
 
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

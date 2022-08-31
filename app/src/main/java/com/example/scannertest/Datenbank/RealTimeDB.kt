@@ -1,7 +1,9 @@
-package com.example.scannertest
+package com.example.scannertest.Datenbank
 
 import android.content.ContentValues
 import android.util.Log
+import com.example.scannertest.Elemente.BestellungTisch
+import com.example.scannertest.Scanner.JsonQRCode
 import com.google.firebase.database.*
 
 class RealTimeDB(var scann: JsonQRCode) {
@@ -30,7 +32,7 @@ class RealTimeDB(var scann: JsonQRCode) {
     }
 
 
-    fun insert(bestellungen: BestellungTisch,scann: JsonQRCode) {
+    fun insert(bestellungen: BestellungTisch, scann: JsonQRCode) {
 
         val value = BestellungTisch(
             bestellungen.lokalID+"X"+bestellungen.tischID,

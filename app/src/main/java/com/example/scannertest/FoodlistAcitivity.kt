@@ -3,12 +3,12 @@ package com.example.scannertest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.scannertest.Elemente.Food
 import com.example.scannertest.databinding.FoodlistBinding
 
 
-class Foodlist : AppCompatActivity() {
+class FoodlistAcitivity : AppCompatActivity() {
 
     private lateinit var binding: FoodlistBinding
     private lateinit var landmarkList : ArrayList<Food>
@@ -20,6 +20,8 @@ class Foodlist : AppCompatActivity() {
         var click= intent.getStringExtra("click")
 
 
+
+        // click wurde aus mainAcitvity übergeben und wird jetzt mit den drawable Elementen abgeglichen und dargestellt
         println(click)
 
         if (click=="Pizza") binding.topBild.setImageResource(R.drawable.pizzas)
@@ -39,18 +41,6 @@ class Foodlist : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         setContentView(view)
 
         landmarkList = ArrayList<Food>()
@@ -59,10 +49,10 @@ class Foodlist : AppCompatActivity() {
 
         //Data
 
-        val pisa = Food("Essen","Italy",R.drawable.pisa)
-        val colosseum = Food("Essen","Italy",R.drawable.colleseum)
-        val eiffel = Food("Essen","France",R.drawable.eiffel)
-        val londonBridge = Food("Essen Essen", "UK", R.drawable.londonbridge)
+        val pisa = Food("Essen","beschreibung4",R.drawable.pizzas)
+        val colosseum = Food("Essen","beschreibung4",R.drawable.pizzas)
+        val eiffel = Food("Essen","beschreibung5",R.drawable.pizzas)
+        val londonBridge = Food("Essen Essen", "beschreibung4", R.drawable.pizzas)
 
         landmarkList.add(pisa)
         landmarkList.add(colosseum)
@@ -82,7 +72,7 @@ class Foodlist : AppCompatActivity() {
 
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        val landmarkAdapter = LandmarkAdapter(landmarkList)
+        val landmarkAdapter = RecyclerAdapter(landmarkList)
         binding.recyclerView.adapter = landmarkAdapter
 
 

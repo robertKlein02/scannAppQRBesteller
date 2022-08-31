@@ -26,7 +26,7 @@
         android:id="@+id/tv_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/imageIcon"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="2dp"
@@ -38,7 +38,7 @@
         android:textColor="#0D0D0D" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageIcon"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:layout_below="@+id/scanner_view"
@@ -49,6 +49,41 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="-1dp"
         app:srcCompat="@drawable/ic_logo" />
+
+    <Button
+        android:id="@+id/oderhier"
+        android:layout_width="323dp"
+        android:layout_height="58dp"
+        android:layout_below="@+id/tischidvisible"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="43dp"
+        android:backgroundTint="#4A56A2"
+        android:text="Zurück zum Bestellen"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/lokalidvisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_textView"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tischidvisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lokalidvisible"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

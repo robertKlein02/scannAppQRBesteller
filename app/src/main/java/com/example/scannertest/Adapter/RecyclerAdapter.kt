@@ -3,24 +3,26 @@ package com.example.scannertest
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.scannertest.databinding.RecyclerRowBinding
+import com.example.scannertest.Elemente.Food
+import com.example.scannertest.databinding.*
 
 
-class LandmarkAdapter (val landmarkList: ArrayList<Food>) : RecyclerView.Adapter<LandmarkAdapter.LandmarkHolder>() {
+class RecyclerAdapter (val landmarkList: ArrayList<Food>) : RecyclerView.Adapter<RecyclerAdapter.LandmarkHolder>() {
 
     class LandmarkHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LandmarkHolder {
-        //Layout (recycler_row) ile kodu binding ile bağlama işlemi
+
         val binding = RecyclerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return LandmarkHolder(binding)
     }
 
     override fun onBindViewHolder(holder: LandmarkHolder, position: Int) {
-        //Bağlandıktan sonra ne olacağı, neyin gösterileceği
+
         holder.binding.resName.text = landmarkList.get(position).name
+        holder.binding.desc.text=landmarkList.get(position).beschreibung
 
         holder.binding.minus.setOnClickListener {
 
@@ -49,7 +51,6 @@ class LandmarkAdapter (val landmarkList: ArrayList<Food>) : RecyclerView.Adapter
     }
 
     override fun getItemCount(): Int {
-        //Kaç tane oluşturulacağı
         return landmarkList.size
     }
 
